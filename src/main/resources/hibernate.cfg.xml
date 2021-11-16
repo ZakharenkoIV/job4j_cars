@@ -19,5 +19,7 @@
         <property name="hibernate.jdbc.time_zone">Europe/Moscow</property>
 
         <mapping class="ru.job4j.hql.model.Candidate"/>
+        <mapping class="ru.job4j.hql.model.Vacancy"/>
+        <mapping class="ru.job4j.hql.model.VacancyBase"/>
     </session-factory>
 </hibernate-configuration>

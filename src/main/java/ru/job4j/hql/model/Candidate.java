@@ -24,6 +24,9 @@ public class Candidate {
     @NotNull
     private int salary;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private VacancyBase vacancyBase;
+
     public static Candidate of(String name, int experience, int salary) {
         Candidate candidate = new Candidate();
         candidate.name = name;
@@ -62,6 +65,14 @@ public class Candidate {
 
     public void setSalary(int salary) {
         this.salary = salary;
+    }
+
+    public VacancyBase getVacancyBase() {
+        return vacancyBase;
+    }
+
+    public void setVacancyBase(VacancyBase vacancyBase) {
+        this.vacancyBase = vacancyBase;
     }
 
     @Override
