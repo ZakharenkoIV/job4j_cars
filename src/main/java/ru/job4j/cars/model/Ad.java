@@ -13,7 +13,7 @@ public class Ad {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "description", unique = true)
+    @Column(name = "description")
     @NotNull
     private String description;
 
