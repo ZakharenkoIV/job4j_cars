@@ -3,7 +3,9 @@ package ru.job4j.cars.model;
 import com.sun.istack.NotNull;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
@@ -34,10 +36,13 @@ public class Ad {
     @NotNull
     private boolean done;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @NotNull
     private User user;
+
+    @OneToMany(mappedBy = "ad", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AdPhoto> photos = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -95,6 +100,18 @@ public class Ad {
         this.user = user;
     }
 
+    public List<AdPhoto> getPhotos() {
+        return photos;
+    }
+
+    private void setPhotos(List<AdPhoto> photos) {
+        this.photos = photos;
+    }
+
+    public void addPhoto(AdPhoto photo) {
+        photos.add(photo);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -115,7 +132,7 @@ public class Ad {
     @Override
     public String toString() {
         return "Ad{" + "id=" + id + ", description='" + description
-                + ", done=" + done + ", user=" + user.getName() + '}';
+                + ", done=" + done + '}';
     }
 
 }

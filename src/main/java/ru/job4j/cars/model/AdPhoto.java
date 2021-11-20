@@ -16,8 +16,8 @@ public class AdPhoto {
     @NotNull
     private String path;
 
-    @ManyToOne
-    @JoinColumn(name = "ad_id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ads_id")
     @NotNull
     private Ad ad;
 
