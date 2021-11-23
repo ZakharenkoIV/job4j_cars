@@ -8,7 +8,9 @@ import org.hibernate.boot.registry.StandardServiceRegistry;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import ru.job4j.cars.model.Ad;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -21,11 +23,18 @@ public class AdRepository {
     private final SessionFactory sf = new MetadataSources(registry)
             .buildMetadata().buildSessionFactory();
 
-    public List<Ad> getAdsForLastDay() {
-        String lastDay = new SimpleDateFormat("yyyy-MM-dd").format(new Date());
+    public List<Ad> getAdsForLastDay() throws ParseException {
+        Date date = new Date();
+        Calendar cal = Calendar.getInstance();
+        SimpleDateFormat formatWithoutTime = new SimpleDateFormat("yyyy-MM-dd");
+        cal.setTime(formatWithoutTime.parse(formatWithoutTime.format(date)));
+        cal.add(Calendar.DATE, -1);
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String yesterday = format.format(cal.getTime());
+        String created = format.format(date);
         return transactionWrapper(session -> session.createQuery(
-                "from Ad a where to_char(a.created,'yyyy-MM-dd') = :created", Ad.class
-        ).setParameter("created", lastDay).getResultList());
+                "from Ad a where a.created <= :created and a.created > :yesterday", Ad.class
+        ).setParameter("created", created).setParameter("yesterday", yesterday).getResultList());
     }
 
     public List<Ad> getAdsWithPhoto() {
