@@ -16,11 +16,17 @@ public class Role {
     @NotNull
     private String name;
 
+    public static Role of(String name) {
+        Role role = new Role();
+        role.setName(name);
+        return role;
+    }
+
     public int getId() {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

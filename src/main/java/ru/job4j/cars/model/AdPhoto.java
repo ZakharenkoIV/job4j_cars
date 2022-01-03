@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import com.sun.istack.NotNull;
+import ru.job4j.cars.dao.AdRepository;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -8,6 +9,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "ad_photos")
 public class AdPhoto {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -17,9 +19,26 @@ public class AdPhoto {
     private String path;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ads_id")
+    @JoinColumn(name = "ad_id")
     @NotNull
     private Ad ad;
+
+    public AdPhoto() {
+    }
+
+    public AdPhoto(int id) {
+        this.id = id;
+    }
+
+    public AdPhoto(String path) {
+        this.path = path;
+    }
+
+    public static AdPhoto of(String path) {
+        AdPhoto adPhoto = new AdPhoto();
+        adPhoto.setPath(path);
+        return adPhoto;
+    }
 
     public int getId() {
         return id;
@@ -41,7 +60,7 @@ public class AdPhoto {
         return ad;
     }
 
-    private void setAd(Ad ad) {
+    public void setAd(Ad ad) {
         this.ad = ad;
     }
 
@@ -64,6 +83,6 @@ public class AdPhoto {
 
     @Override
     public String toString() {
-        return "AdPhoto{" + "id=" + id + ", path='" + path + ", ad=" + ad.getDescription() + '}';
+        return "AdPhoto{" + "id=" + id + ", path='" + path + '}';
     }
 }

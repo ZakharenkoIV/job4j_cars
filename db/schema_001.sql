@@ -15,13 +15,17 @@ create table users
 
 create table ads
 (
-    id          serial primary key,
-    description text         not null,
-    brand_car   varchar(255) not null,
-    body_type   varchar(255) not null,
-    created     Timestamp    not null,
-    done        boolean DEFAULT false,
-    user_id     integer      not null references users (id)
+    id           serial primary key,
+    description  text         not null,
+    brand_car    varchar(255) not null,
+    price        varchar(255) not null,
+    phone_number varchar(255) not null,
+    mileage      varchar(255) not null,
+    color        varchar(255) not null,
+    body_type    varchar(255) not null,
+    created      Timestamp    not null,
+    on_sale      boolean DEFAULT false,
+    user_id      integer      not null references users (id)
 );
 
 create table ad_photos

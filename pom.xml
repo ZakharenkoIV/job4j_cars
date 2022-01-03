@@ -19,6 +19,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.4</version>
+        </dependency> <!--commons-fileupload 1.4-->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+        </dependency> <!--commons-io 2.11.0-->
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
@@ -139,6 +149,11 @@
                     </execution>
                 </executions>
             </plugin> <!--jacoco-maven-plugin 0.8.5-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.3.1</version>
+            </plugin> <!--maven-war-plugin 3.3.1-->
         </plugins>
     </build>
 

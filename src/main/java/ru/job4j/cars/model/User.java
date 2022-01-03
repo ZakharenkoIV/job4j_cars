@@ -1,6 +1,7 @@
 package ru.job4j.cars.model;
 
 import com.sun.istack.NotNull;
+import ru.job4j.cars.dao.RoleRepository;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -29,11 +30,20 @@ public class User {
     @NotNull
     private Role role;
 
+    public static User of(String name, String email, String password, int roleId) {
+        User user = new User();
+        user.setName(name);
+        user.setEmail(email);
+        user.setPassword(password);
+        user.setRole(RoleRepository.getInstance().getRoleById(roleId));
+        return user;
+    }
+
     public int getId() {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
