@@ -18,12 +18,10 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
+import static ru.job4j.cars.Utils.getPathToUsersPhotoFolder;
 import static ru.job4j.cars.model.utils.Utils.*;
 
 public class AdServlet extends HttpServlet {
-    public static final String PATH_TO_USERS_PHOTO_FOLDER =
-            "C:/Projects/job4j_cars/images/userPhotos/";
-    public static final String DEFAULT_CAR_PHOTO = "default_car.jpg";
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
@@ -43,7 +41,7 @@ public class AdServlet extends HttpServlet {
         ServletContext servletContext = this.getServletConfig().getServletContext();
         List<FileItem> items = getUploadItems(req, servletContext);
         Map<String, String> fields = parseFields(items);
-        Path pathToAdPhotos = Paths.get(PATH_TO_USERS_PHOTO_FOLDER + userId + "/tempPhotoDir");
+        Path pathToAdPhotos = Paths.get(getPathToUsersPhotoFolder()  + userId + "/tempPhotoDir");
         List<AdPhoto> photos = parseFiles(items, userId, pathToAdPhotos);
         Ad newAd = createNewAd(fields, photos, Integer.parseInt(userId));
         AdRepository.getInstance().save(newAd);

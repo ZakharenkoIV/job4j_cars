@@ -17,7 +17,6 @@ public class Ad implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "price")
     @NotNull
     private String price;
 
@@ -25,15 +24,12 @@ public class Ad implements Serializable {
     @NotNull
     private String phoneNumber;
 
-    @Column(name = "mileage")
     @NotNull
     private String mileage;
 
-    @Column(name = "color")
     @NotNull
     private String color;
 
-    @Column(name = "description")
     @NotNull
     private String description;
 
@@ -45,7 +41,6 @@ public class Ad implements Serializable {
     @NotNull
     private String bodyType;
 
-    @Column(name = "created")
     @NotNull
     @Temporal(TemporalType.TIMESTAMP)
     private Date created = new Date();

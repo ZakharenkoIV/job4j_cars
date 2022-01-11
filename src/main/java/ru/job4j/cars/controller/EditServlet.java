@@ -18,7 +18,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.Map;
 
-import static ru.job4j.cars.controller.AdServlet.PATH_TO_USERS_PHOTO_FOLDER;
+import static ru.job4j.cars.Utils.getPathToUsersPhotoFolder;
 import static ru.job4j.cars.model.utils.Utils.*;
 
 public class EditServlet extends HttpServlet {
@@ -44,7 +44,7 @@ public class EditServlet extends HttpServlet {
 
         User authUser = (User) req.getSession().getAttribute("authUser");
         String userId = String.valueOf(authUser.getId());
-        Path pathToAdPhotos = Paths.get(PATH_TO_USERS_PHOTO_FOLDER + userId + "/tempPhotoDir");
+        Path pathToAdPhotos = Paths.get(getPathToUsersPhotoFolder()  + userId + "/tempPhotoDir");
         List<AdPhoto> photos = parseFiles(items, userId, pathToAdPhotos);
         Ad ad = createNewAd(fields, photos, Integer.parseInt(userId));
         ad.setId(adId);

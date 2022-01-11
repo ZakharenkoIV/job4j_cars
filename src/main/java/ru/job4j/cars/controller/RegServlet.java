@@ -24,7 +24,12 @@ public class RegServlet extends HttpServlet {
         Role role = new Role();
         role.setId(1);
         newUser.setRole(role);
-        UserRepository.getInstance().save(newUser);
+        try {
+            UserRepository.getInstance().save(newUser);
+        } catch (IllegalStateException e) {
+            resp.sendError(409, "Этот email уже зарегистрирован");
+            return;
+        }
         req.getSession().setAttribute("authUser", newUser);
         resp.sendRedirect("index.jsp");
     }

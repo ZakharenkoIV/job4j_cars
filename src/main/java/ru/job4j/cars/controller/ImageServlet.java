@@ -9,8 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import static ru.job4j.cars.controller.AdServlet.DEFAULT_CAR_PHOTO;
-import static ru.job4j.cars.controller.AdServlet.PATH_TO_USERS_PHOTO_FOLDER;
+import static ru.job4j.cars.Utils.getDefaultCarPhoto;
+import static ru.job4j.cars.Utils.getPathToUsersPhotoFolder;
 
 public class ImageServlet extends HttpServlet {
 
@@ -25,10 +25,10 @@ public class ImageServlet extends HttpServlet {
             adId = req.getParameter("p1") + "/";
         }
 
-        byte[] imageBytes = Files.readAllBytes(Paths.get(PATH_TO_USERS_PHOTO_FOLDER
+        byte[] imageBytes = Files.readAllBytes(Paths.get(getPathToUsersPhotoFolder()
                 .concat(userId)
                 .concat(adId)
-                .concat(photoPath.orElse(DEFAULT_CAR_PHOTO))));
+                .concat(photoPath.orElse(getDefaultCarPhoto()))));
         resp.setContentLength(imageBytes.length);
         ServletOutputStream outStream = resp.getOutputStream();
         outStream.write(imageBytes);
